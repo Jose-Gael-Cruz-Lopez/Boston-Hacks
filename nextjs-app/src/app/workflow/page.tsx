@@ -1,10 +1,14 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowDown, ChevronDown, ChevronUp } from "lucide-react";
 import { Storyboard } from "@/components/Storyboard";
 import Spline from '@splinetool/react-spline/next';
+import StableImg from "../assets/stableImg.png"; 
+import Neon from "../assets/neon.jpg"; 
+import Pixel from "../assets/pixel.jpg"; 
+import Vintage from "../assets/vintage.png"; 
 
 /**
  * Workflow Page - Static Major Changes Flowchart with Storyboard
@@ -22,28 +26,29 @@ interface Change {
   filterOptions: string[];
   intensity: number;
   previewUrl: string;
+  img: string;
 }
 
 // Static stack of major changes
 const majorChanges: MajorChange[] = [
   {
-    title: "majorChange1",
+    title: "Background",
     details: ["Background color changed to blue", "Overlay applied"],
   },
   {
-    title: "majorChange2",
+    title: "Brightness",
     details: ["Brightness increased by 20%", "Contrast adjusted"],
   },
   {
-    title: "majorChange3",
+    title: "Saturation",
     details: ["Saturation enhanced", "Shadow depth added"],
   },
   {
-    title: "majorChange4",
+    title: "Vintage Filter Applied",
     details: ["Filter vintage applied", "Grain texture added"],
   },
   {
-    title: "majorChange5",
+    title: "Image Sharpness",
     details: ["Final color grading", "Sharpness optimized"],
   },
 ];
@@ -54,51 +59,162 @@ const mockChanges: Change[] = [
     title: "Original",
     filterOptions: ["None"],
     intensity: 0,
-    previewUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop"
+    previewUrl: "/src/app/assets/stableImg.png",
+    img: StableImg.src
   },
   {
     title: "Vintage",
     filterOptions: ["Sepia", "Grain", "Vignette"],
     intensity: 75,
-    previewUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop&sat=-50&con=20"
+    previewUrl: "/src/app/assets/stableImg.png",
+    img: Vintage.src
   },
   {
     title: "Neon",
     filterOptions: ["Cyan", "Pink", "Purple"],
     intensity: 60,
-    previewUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop&sat=100&hue=180"
+    previewUrl: "/src/app/assets/stableImg.png",
+    img: Neon.src
   },
   {
     title: "Pixel",
     filterOptions: ["Pixelate", "Scanlines", "Chromatic"],
     intensity: 85,
-    previewUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop&blur=2"
+    previewUrl: "/src/app/assets/stableImg.png",
+    img: Pixel.src
   },
   {
     title: "Final",
     filterOptions: ["Sharpness", "Contrast", "Brightness"],
     intensity: 90,
-    previewUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop&con=30&sat=20"
+    previewUrl: "/src/app/assets/stableImg.png",
+    img: StableImg.src
   }
 ];
 
-const FINAL_OUTPUT_IMAGE = "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop";
+const FINAL_OUTPUT_IMAGE = "/src/app/assets/stableImg.png";
 
 export default function Workflow() {
-  const [expandedChanges, setExpandedChanges] = useState<Set<number>>(new Set());
   const [prompt, setPrompt] = useState("");
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+  // Create refs for each dropdown using map
+  const dropdownRefs = majorChanges.map(() => useRef<HTMLDivElement>(null));
+  const buttonRefs = majorChanges.map(() => useRef<HTMLButtonElement>(null));
+  
+  // Create refs for modal elements
+  const modalOverlayRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
+  const modalTextareaRef = useRef<HTMLTextAreaElement>(null);
+
   const toggleDetails = (index: number) => {
-    setExpandedChanges((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
+    const dropdownElement = dropdownRefs[index].current;
+    const buttonElement = buttonRefs[index].current;
+    
+    if (dropdownElement && buttonElement) {
+      // Pure JavaScript DOM manipulation with smooth transitions
+      const isVisible = dropdownElement.style.display !== 'none';
+      
+      if (isVisible) {
+        // Hide dropdown with smooth transition
+        dropdownElement.style.opacity = '0';
+        dropdownElement.style.height = '0';
+        dropdownElement.style.overflow = 'hidden';
+        dropdownElement.style.transform = 'translateY(-10px)';
+        
+        // Update button icon with smooth rotation
+        const chevronIcon = buttonElement.querySelector('svg');
+        if (chevronIcon) {
+          chevronIcon.style.transform = 'rotate(0deg)';
+        }
+        
+        // Hide after transition completes
+        setTimeout(() => {
+          dropdownElement.style.display = 'none';
+        }, 300);
       } else {
-        newSet.add(index);
+        // Show dropdown with smooth transition
+        dropdownElement.style.display = 'block';
+        dropdownElement.style.opacity = '0';
+        dropdownElement.style.height = '0';
+        dropdownElement.style.overflow = 'hidden';
+        dropdownElement.style.transform = 'translateY(-10px)';
+        
+        // Trigger smooth animation
+        setTimeout(() => {
+          dropdownElement.style.opacity = '1';
+          dropdownElement.style.height = 'auto';
+          dropdownElement.style.overflow = 'visible';
+          dropdownElement.style.transform = 'translateY(0)';
+        }, 10);
+        
+        // Update button icon with smooth rotation
+        const chevronIcon = buttonElement.querySelector('svg');
+        if (chevronIcon) {
+          chevronIcon.style.transform = 'rotate(180deg)';
+        }
       }
-      return newSet;
-    });
+    }
+  };
+
+  const openRepromptModal = (changeTitle: string) => {
+    const overlay = modalOverlayRef.current;
+    const content = modalContentRef.current;
+    const textarea = modalTextareaRef.current;
+    
+    if (overlay && content && textarea) {
+      // Set the change title in the modal
+      const titleElement = content.querySelector('h3');
+      const placeholderElement = textarea;
+      
+      if (titleElement) {
+        titleElement.textContent = `Reprompt: ${changeTitle}`;
+      }
+      
+      if (placeholderElement) {
+        placeholderElement.placeholder = `Tell me how you want to change the ${changeTitle.toLowerCase()}...`;
+      }
+      
+      // Clear textarea
+      textarea.value = '';
+      
+      // Show modal with CSS transitions
+      overlay.style.display = 'flex';
+      overlay.style.opacity = '0';
+      content.style.transform = 'scale(0.8)';
+      
+      // Trigger transitions
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+        content.style.transform = 'scale(1)';
+      }, 10);
+    }
+  };
+
+  const closeModal = () => {
+    const overlay = modalOverlayRef.current;
+    const content = modalContentRef.current;
+    
+    if (overlay && content) {
+      // Hide modal with CSS transitions
+      overlay.style.opacity = '0';
+      content.style.transform = 'scale(0.8)';
+      
+      // Hide after transition
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 300);
+    }
+  };
+
+  const handleRepromptSubmit = () => {
+    const textarea = modalTextareaRef.current;
+    
+    if (textarea && textarea.value.trim()) {
+      console.log(`Reprompt submitted: ${textarea.value}`);
+      // Here you would typically send the reprompt to your API
+      closeModal();
+    }
   };
 
   return (
@@ -188,7 +304,7 @@ export default function Workflow() {
               imageRendering: 'pixelated'
             }}
           >
-            Change History Flow
+            Context History Flow
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
@@ -220,6 +336,7 @@ export default function Workflow() {
                         {change.title}
                       </h3>
                       <button
+                        ref={buttonRefs[index]}
                         onClick={() => toggleDetails(index)}
                         className="bg-yellow-400 hover:bg-cyan-400 p-2 transition-colors z-10"
                         style={{
@@ -229,41 +346,61 @@ export default function Workflow() {
                         }}
                         aria-label="Toggle details"
                       >
-                        {expandedChanges.has(index) ? (
-                          <ChevronUp className="w-5 h-5 text-black" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-black" />
-                        )}
+                        <ChevronDown 
+                          className="w-5 h-5 text-black" 
+                          style={{ 
+                            transform: 'rotate(0deg)',
+                            transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                          }}
+                        />
                       </button>
                     </div>
                     
-                    {expandedChanges.has(index) && (
-                      <motion.ul
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="space-y-3 bg-black/50 p-4 border-2 border-yellow-400"
-                        style={{
-                          imageRendering: 'pixelated',
-                          boxShadow: 'inset 0 0 0 2px #FFE400, 0 0 0 2px #000000',
-                          clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))'
-                        }}
-                      >
-                        {change.details.map((detail, detailIndex) => (
-                          <li
-                            key={detailIndex}
-                            className="font-arcade text-sm md:text-base text-yellow-400 flex items-start gap-2"
-                            style={{
-                              textShadow: '1px 1px 0px #000000',
-                              imageRendering: 'pixelated'
-                            }}
-                          >
-                            <span className="text-yellow-400 mt-1 text-lg">•</span>
-                            <span>{detail}</span>
-                          </li>
-                        ))}
-                      </motion.ul>
-                    )}
+                    <div
+                      ref={dropdownRefs[index]}
+                      className="space-y-3 bg-black/50 p-4 border-2 border-yellow-400"
+                      style={{
+                        imageRendering: 'pixelated',
+                        boxShadow: 'inset 0 0 0 2px #FFE400, 0 0 0 2px #000000',
+                        clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                        display: 'none',
+                        opacity: '0',
+                        height: '0',
+                        overflow: 'hidden',
+                        transform: 'translateY(-10px)',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                      }}
+                    >
+                      {change.details.map((detail, detailIndex) => (
+                        <div
+                          key={detailIndex}
+                          className="font-arcade text-sm md:text-base text-yellow-400 flex items-start gap-2"
+                          style={{
+                            textShadow: '1px 1px 0px #000000',
+                            imageRendering: 'pixelated'
+                          }}
+                        >
+                          <span className="text-yellow-400 mt-1 text-lg">•</span>
+                          <span>{detail}</span>
+                        </div>
+                      ))}
+                      
+                      {/* Reprompt Button */}
+                      <div className="mt-4 pt-4 border-t-2 border-yellow-400">
+                        <button
+                          onClick={() => openRepromptModal(change.title)}
+                          className="bg-cyan-400 hover:bg-yellow-400 text-black font-pixel text-sm px-4 py-2 transition-colors uppercase"
+                          style={{
+                            imageRendering: 'pixelated',
+                            boxShadow: '0 0 0 2px #000000, 0 4px 0 0 #000000',
+                            clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                            textShadow: '1px 1px 0px #000000'
+                          }}
+                        >
+                          Reprompt
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -356,7 +493,7 @@ export default function Workflow() {
                 }}
               >
                 <img
-                  src={FINAL_OUTPUT_IMAGE}
+                  src={StableImg.src}
                   alt="Final output"
                   className="w-full h-auto"
                   style={{ imageRendering: 'pixelated' }}
@@ -393,6 +530,107 @@ export default function Workflow() {
           </motion.div>
         </section>
       </main>
+
+      {/* Reprompt Modal Overlay - Pure Vanilla JS */}
+      <div 
+        ref={modalOverlayRef}
+        className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+        style={{
+          display: 'none',
+          transition: 'opacity 0.3s ease-in-out'
+        }}
+        onClick={closeModal}
+      >
+        <div 
+          ref={modalContentRef}
+          className="bg-black border-4 border-yellow-400 p-8 max-w-2xl w-full mx-4 relative"
+          style={{
+            imageRendering: 'pixelated',
+            boxShadow: 'inset 0 0 0 2px #FFE400, 0 0 0 4px #000000, 0 8px 0 0 #000000',
+            clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+            transition: 'transform 0.3s ease-in-out'
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white font-pixel text-lg px-3 py-1 transition-colors"
+            style={{
+              imageRendering: 'pixelated',
+              boxShadow: '0 0 0 2px #000000, 0 2px 0 0 #000000',
+              clipPath: 'polygon(0 0, calc(100% - 2px) 0, 100% 2px, 100% 100%, 2px 100%, 0 calc(100% - 2px))'
+            }}
+          >
+            ×
+          </button>
+
+          {/* Modal Header */}
+          <div className="mb-6">
+            <h3 
+              className="font-pixel text-yellow-400 text-xl uppercase mb-2"
+              style={{
+                textShadow: '2px 2px 0px #000000',
+                imageRendering: 'pixelated'
+              }}
+            >
+              Reprompt: Change
+            </h3>
+            <p 
+              className="font-arcade text-yellow-400 text-sm"
+              style={{
+                textShadow: '1px 1px 0px #000000',
+                imageRendering: 'pixelated'
+              }}
+            >
+              Describe how you want to modify this aspect of your image
+            </p>
+          </div>
+
+          {/* Chat Bubble Input */}
+          <div className="mb-6">
+            <textarea
+              ref={modalTextareaRef}
+              placeholder="Tell me how you want to change this aspect..."
+              className="font-arcade text-base w-full bg-black border-4 border-yellow-400 text-yellow-400 p-4 resize-none focus:outline-none focus:border-cyan-400 transition-colors min-h-[120px]"
+              style={{
+                textShadow: '1px 1px 0px #000000',
+                imageRendering: 'pixelated',
+                boxShadow: 'inset 0 0 0 2px #FFE400, 0 0 0 4px #000000',
+                clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+              }}
+            />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-4 justify-end">
+            <button
+              onClick={closeModal}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-pixel text-sm px-6 py-2 transition-colors uppercase"
+              style={{
+                imageRendering: 'pixelated',
+                boxShadow: '0 0 0 2px #000000, 0 4px 0 0 #000000',
+                clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                textShadow: '1px 1px 0px #000000'
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleRepromptSubmit}
+              className="bg-yellow-400 hover:bg-cyan-400 text-black font-pixel text-sm px-6 py-2 transition-colors uppercase"
+              style={{
+                imageRendering: 'pixelated',
+                boxShadow: '0 0 0 2px #000000, 0 4px 0 0 #000000',
+                clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                textShadow: '1px 1px 0px #000000'
+              }}
+            >
+              Submit Reprompt
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

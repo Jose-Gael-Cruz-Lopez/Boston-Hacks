@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-
+import StableImg from "../app/assets/stableImg.png"
 /**
  * Storyboard Component
  * Displays an animated horizontal carousel of preview images
@@ -72,7 +72,7 @@ export function Storyboard({ changes, selectedIndex, onSelectImage, isLoading }:
               >
                 {/* Preview image */}
                 <img 
-                  src={change.previewUrl} 
+                  src={change.img} 
                   alt={change.title}
                   className="w-full h-full object-cover"
                   style={{ imageRendering: 'pixelated' }}
