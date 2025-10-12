@@ -1,4 +1,4 @@
-# PromptStorm - 8-bit Arcade AI Media Remixer
+# PixelPal - 8-bit Arcade AI Media Remixer
 
 A responsive, multi-page React/Next.js application with an authentic 8-bit arcade aesthetic inspired by Pac-Man and retro gaming.
 
