@@ -1,0 +1,337 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Pixel Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-200 hover:bg-secondary-300 text-secondary-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2;
+  }
+  
+  .btn-outline {
+    @apply border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+
+  /* Retro/Remix Theme Buttons */
+  .btn-neon-pink {
+    @apply bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-mono font-bold py-3 px-6 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 shadow-neon-pink hover:shadow-lg transform hover:scale-105;
+  }
+
+  .btn-neon-cyan {
+    @apply bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-mono font-bold py-3 px-6 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 shadow-neon-cyan hover:shadow-lg transform hover:scale-105;
+  }
+
+  .btn-neon-purple {
+    @apply bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-mono font-bold py-3 px-6 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 shadow-neon hover:shadow-lg transform hover:scale-105;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section {
+    @apply py-12;
+  }
+  
+  .heading-1 {
+    @apply text-4xl font-bold text-gray-900 sm:text-5xl lg:text-6xl;
+  }
+  
+  .heading-2 {
+    @apply text-3xl font-bold text-gray-900 sm:text-4xl;
+  }
+  
+  .heading-3 {
+    @apply text-2xl font-semibold text-gray-900;
+  }
+  
+  .text-body {
+    @apply text-lg text-gray-600;
+  }
+  
+  .text-small {
+    @apply text-sm text-gray-500;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+
+  /* 8-bit Arcade Styles */
+  .pixel-font {
+    font-family: 'Press Start 2P', monospace;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  .terminal-font {
+    font-family: 'Courier New', monospace;
+  }
+
+  .pixel-border {
+    border: 2px solid #FFE400;
+    box-shadow: 4px 4px 0px #000;
+  }
+
+  .pixel-button {
+    background-color: #FFE400;
+    color: #000;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0px #000;
+    transition: all 0.1s ease;
+  }
+
+  .pixel-button:hover {
+    background-color: #ffd700;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000;
+  }
+
+  .pixel-glow {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor;
+  }
+
+  .chromatic-aberration {
+    filter: drop-shadow(2px 2px 0px #ff0000) drop-shadow(-2px -2px 0px #00ffff);
+  }
+
+  .scanlines {
+    position: relative;
+  }
+
+      .scanlines::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.03) 2px,
+          rgba(255, 255, 255, 0.03) 4px
+        );
+        pointer-events: none;
+      }
+
+      /* Floating Particles Animation - Circular Orbits */
+      .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, #FFE400 0%, #FFD700 50%, transparent 100%);
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: orbit-large 20s linear infinite;
+        transform-origin: center;
+      }
+
+      .particle-medium {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: radial-gradient(circle, #00FFFF 0%, #0080FF 50%, transparent 100%);
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: orbit-medium 25s linear infinite;
+        transform-origin: center;
+      }
+
+      .particle-small {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        background: radial-gradient(circle, #FF69B4 0%, #FF1493 50%, transparent 100%);
+        border-radius: 50%;
+        opacity: 0.4;
+        animation: orbit-small 30s linear infinite;
+        transform-origin: center;
+      }
+
+      /* Particle positions - arranged in circular orbits */
+      .particle-1 { left: 50%; top: 20%; animation-delay: 0s; }
+      .particle-2 { left: 70%; top: 30%; animation-delay: 2.5s; }
+      .particle-3 { left: 80%; top: 50%; animation-delay: 5s; }
+      .particle-4 { left: 70%; top: 70%; animation-delay: 7.5s; }
+      .particle-5 { left: 50%; top: 80%; animation-delay: 10s; }
+      .particle-6 { left: 30%; top: 70%; animation-delay: 12.5s; }
+      .particle-7 { left: 20%; top: 50%; animation-delay: 15s; }
+      .particle-8 { left: 30%; top: 30%; animation-delay: 17.5s; }
+
+      .particle-medium-1 { left: 50%; top: 10%; animation-delay: 1s; }
+      .particle-medium-2 { left: 75%; top: 20%; animation-delay: 4s; }
+      .particle-medium-3 { left: 90%; top: 50%; animation-delay: 7s; }
+      .particle-medium-4 { left: 75%; top: 80%; animation-delay: 10s; }
+      .particle-medium-5 { left: 50%; top: 90%; animation-delay: 13s; }
+      .particle-medium-6 { left: 25%; top: 80%; animation-delay: 16s; }
+
+      .particle-small-1 { left: 50%; top: 5%; animation-delay: 0.5s; }
+      .particle-small-2 { left: 80%; top: 10%; animation-delay: 2s; }
+      .particle-small-3 { left: 95%; top: 30%; animation-delay: 4.5s; }
+      .particle-small-4 { left: 95%; top: 70%; animation-delay: 7s; }
+      .particle-small-5 { left: 80%; top: 90%; animation-delay: 9.5s; }
+      .particle-small-6 { left: 50%; top: 95%; animation-delay: 12s; }
+      .particle-small-7 { left: 20%; top: 90%; animation-delay: 14.5s; }
+      .particle-small-8 { left: 5%; top: 70%; animation-delay: 17s; }
+      .particle-small-9 { left: 5%; top: 30%; animation-delay: 19.5s; }
+      .particle-small-10 { left: 20%; top: 10%; animation-delay: 22s; }
+
+      @keyframes orbit-large {
+        0% {
+          transform: rotate(0deg) translateX(200px) rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg) translateX(200px) rotate(-360deg);
+        }
+      }
+
+      @keyframes orbit-medium {
+        0% {
+          transform: rotate(0deg) translateX(300px) rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg) translateX(300px) rotate(-360deg);
+        }
+      }
+
+      @keyframes orbit-small {
+        0% {
+          transform: rotate(0deg) translateX(400px) rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg) translateX(400px) rotate(-360deg);
+        }
+      }
+    }
+
+    /* Pixel Loading Spinner Animation */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pixelPulse {
+      0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 0.7;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Slider Styling */
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: #FFE400;
+      border: 2px solid #000000;
+      border-radius: 0;
+      cursor: pointer;
+      box-shadow: 0 0 0 2px #000000, 0 2px 0 0 #000000;
+      clip-path: polygon(0 0, calc(100% - 2px) 0, 100% 2px, 100% 100%, 2px 100%, 0 calc(100% - 2px));
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: #FFE400;
+      border: 2px solid #000000;
+      border-radius: 0;
+      cursor: pointer;
+      box-shadow: 0 0 0 2px #000000, 0 2px 0 0 #000000;
+      clip-path: polygon(0 0, calc(100% - 2px) 0, 100% 2px, 100% 100%, 2px 100%, 0 calc(100% - 2px));
+    }
+
+    /* PromptStorm Pixel Canvas Styles */
+    .font-pixel {
+      font-family: 'Press Start 2P', monospace;
+    }
+    
+    .font-arcade {
+      font-family: 'VT323', monospace;
+    }
+    
+    .terminal-font {
+      font-family: 'Courier New', monospace;
+    }
+    
+    /* Pixel Glow Effect */
+    .pixel-glow {
+      box-shadow: 0 0 10px rgba(255, 228, 0, 0.5),
+                  0 0 20px rgba(255, 228, 0, 0.3),
+                  inset 0 0 10px rgba(255, 228, 0, 0.1);
+    }
+    
+    /* Arcade Button */
+    .arcade-btn {
+      @apply bg-yellow-400 text-black font-pixel text-xs px-6 py-3 
+             border-2 border-yellow-400 uppercase tracking-wider
+             transition-all duration-150;
+      box-shadow: 0 4px 0 rgba(255, 228, 0, 0.7),
+                  0 0 20px rgba(255, 228, 0, 0.4);
+    }
+    
+    .arcade-btn:hover {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(255, 228, 0, 0.7),
+                  0 0 30px rgba(255, 228, 0, 0.6);
+    }
+    
+    .arcade-btn:active {
+      transform: translateY(4px);
+      box-shadow: none;
+    }
+
