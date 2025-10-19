@@ -6,7 +6,7 @@ A responsive, multi-page React/Next.js application with an authentic 8-bit arcad
 https://github.com/user-attachments/assets/7e54d506-4134-4a00-ae61-0941344bbcb5
 
 
-## 📱 How to Use PixelPal
+## How to Use PixelPal
 
 ### Step 1: Upload Your Photo
 - Drag and drop an image or video into the upload zone
@@ -52,7 +52,7 @@ https://github.com/user-attachments/assets/7e54d506-4134-4a00-ae61-0941344bbcb5
 - **Neon Glows**: Text shadows and box shadows for retro feel
 - **Animations**: Framer Motion for smooth card transitions
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
@@ -102,7 +102,7 @@ nextjs-app/
 └── package.json                     # Dependencies
 ```
 
-## 🔧 API Integration
+## API Integration
 
 ### `/api/generateChanges` Endpoint
 
@@ -128,7 +128,7 @@ nextjs-app/
 }
 ```
 
-## 🎯 Usage Flow
+## Usage Flow
 
 1. **Upload Media**: Drag & drop or click to upload image/video
 2. **Describe Vibe**: Enter prompt describing desired changes
@@ -138,7 +138,7 @@ nextjs-app/
 6. **History**: View and restore previous versions
 7. **Responsive**: Works on desktop and mobile devices
 
-## 🎨 Customization
+## Customization
 
 ### Colors
 Update `tailwind.config.js` to modify the arcade color palette:
@@ -167,7 +167,7 @@ Framer Motion animations can be customized in each component:
 >
 ```
 
-## 🔍 Technical Details
+## Technical Details
 
 ### State Management
 - **File State**: Managed in Upload page, passed via sessionStorage
@@ -184,7 +184,7 @@ Framer Motion animations can be customized in each component:
 - **Images**: Optimized previews with proper aspect ratios
 - **State**: Efficient updates with React hooks
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -203,11 +203,11 @@ Framer Motion animations can be customized in each component:
 - Check localStorage for history persistence
 - Monitor network tab for API calls
 
-## 📝 License
+## License
 
 This project is created for educational purposes. Feel free to modify and extend for your own use.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -215,6 +215,4 @@ This project is created for educational purposes. Feel free to modify and extend
 4. Test thoroughly
 5. Submit a pull request
 
----
 
-**Ready to remix your media in retro style!** 🎮✨
