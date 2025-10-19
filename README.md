@@ -2,6 +2,10 @@
 
 A responsive, multi-page React/Next.js application with an authentic 8-bit arcade aesthetic inspired by Pac-Man and retro gaming.
 
+
+https://github.com/user-attachments/assets/7e54d506-4134-4a00-ae61-0941344bbcb5
+
+
 ## 🎮 Features
 
 ### Page 1: Upload & Prompt
