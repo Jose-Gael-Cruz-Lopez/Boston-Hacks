@@ -6,36 +6,40 @@ A responsive, multi-page React/Next.js application with an authentic 8-bit arcad
 https://github.com/user-attachments/assets/7e54d506-4134-4a00-ae61-0941344bbcb5
 
 
-## 🎮 Features
+## 📱 How to Use PixelPal
 
-### Page 1: Upload & Prompt
-- **FileUpload Component**: Drag & drop or click to upload images/videos
-- **Live Preview**: Instant preview of uploaded media
-- **Prompt Input**: Styled textarea with "Describe the vibe..." placeholder
-- **Generate Button**: Pixel-font "Generate Changes" button with validation
+### Step 1: Upload Your Photo
+- Drag and drop an image or video into the upload zone
+- Or click to browse your files
+- Instant preview of your media
 
-### Page 2: Loading
-- **Pixel Spinner**: Animated loading spinner in arcade yellow
-- **Dynamic Text**: "> LOADING..." with animated dots
-- **API Integration**: Calls `/api/generateChanges` with file + prompt
-- **Auto Navigation**: Redirects to Workflow page after completion
+### Step 2: Describe Your Vision
+- Type a natural language prompt in the retro-styled text area
+- Examples:
+  - "Make it look like an old polaroid photo"
+  - "Add cyberpunk neon lighting"
+  - "Give it a dreamy, ethereal vibe"
 
-### Page 3: Workflow
-- **Change Cards**: Vertical list of editable change cards
-- **Inline Editing**: Click titles to edit them directly
-- **Filter Dropdowns**: Populated with AI-generated filter options
-- **Intensity Sliders**: Range sliders (0-100) for each change
-- **Live Previews**: Thumbnail previews for each change
-- **History Sidebar**: Right-aligned history with numbered entries
-- **Responsive Design**: Stacks sidebar below main panel on mobile
+### Step 3: Generate Workflow
+- Click the **"Generate Changes"** button
+- Watch the arcade-style loading animation
+- AI processes your request in seconds
 
-## 🎨 8-bit Arcade Aesthetic
+### Step 4: Refine Your Edit
+- Review the step-by-step workflow cards
+- Click any card title to edit the instruction
+- Adjust filter dropdowns and intensity sliders
+- See live previews of each change
 
-### Color Palette
-- **Primary**: Bright pixel yellow (#FFE400)
-- **Accents**: Neon cyan (#00FFFF) and hot pink (#FF69B4)
-- **Background**: Solid black with pixel star pattern overlay
-- **Text**: Light gray (#CCCCCC) for body text
+### Step 5: Explore History
+- Browse all previous versions in the history sidebar
+- Click any thumbnail to restore that version
+- History persists even after closing the browser
+
+### Step 6: Download & Share
+- Export your final edited image
+- Share your creation on social media
+
 
 ### Typography
 - **Headings/Buttons**: "Press Start 2P" pixel font
