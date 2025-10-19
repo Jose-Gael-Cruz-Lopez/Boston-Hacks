@@ -1,4 +1,4 @@
-# PixelPal - 8-bit Arcade AI Media Remixer
+# PixelPal: Interactive AI Media Workflow
 
 Legacy photo editing tools like Adobe Photoshop, GIMP, and Adobe Lightroom have become industry standards—but they're also cluttered, technical, and highly unintuitive for everyday users. PixelPal reimagines photo editing by combining the power of AI with a fun, accessible arcade interface that anyone can use.
 
@@ -6,7 +6,9 @@ We asked: What if photo editing felt like playing a retro game instead of naviga
 
 PixelPal is a Next.js web application that uses Google Gemini AI to transform your photos through natural language. Instead of adjusting sliders and filters manually, you simply describe what you want—like "give the picture a 90s film retro vibe"—and PixelPal generates a step-by-step visual workflow to bring your vision to life.
 
-https://github.com/user-attachments/assets/7e54d506-4134-4a00-ae61-0941344bbcb5
+
+
+https://github.com/user-attachments/assets/9ce321d5-164f-4ad9-98e8-81cf4eb85fb1
 
 
 ## How to Use PixelPal
